@@ -7,30 +7,33 @@ package com.mycompany.employeepayroll;
 import java.time.*;
 import java.time.temporal.*;
 import java.util.*;
+import java.util.Scanner;
 
 public class EmployeePayroll {
 
     @SuppressWarnings("resource")
 	public static void main(String[] args) {
-    	
-        // Create a Scanner object to read user input
-        Scanner scanner = new Scanner(System.in);
-
+            
+       Scanner strScanner = new Scanner(System.in);
+       Scanner fltScanner = new Scanner(System.in);
+   
+       EmployeeProfile employee = new EmployeeProfile();
+       
         // Get the employee number
-        System.out.println("Enter employee number: ");
-        String number = scanner.nextLine();
-        
+        System.out.print("Enter employee number: ");
+        employee.SetEmployeeNo(strScanner.nextLine());
+       
         // Get the employee name
-        System.out.println("Enter employee name: ");
-        String name = scanner.nextLine();
-        
+        System.out.print("Enter employee name: ");
+        employee.SetEmployeeName(strScanner.nextLine());
+       
         // Get the employee birth date
-        System.out.println("Enter employee birthdate: ");
-        String birthdate = scanner.nextLine();
-
+        System.out.print("Enter employee birthdate: ");
+        employee.SetEmployeeBirthdate(strScanner.nextLine());
+       
         // Get the employee's hourly rate
-        System.out.println("Enter the employee's hourly rate: ");
-        float hourlyRate = scanner.nextFloat();
+        System.out.print("Enter the employee's hourly rate: ");
+        float hourlyRate = fltScanner.nextFloat();
 
         // Define the work week as starting on Monday and ending on Sunday
         DayOfWeek firstDayOfWeek = DayOfWeek.MONDAY;
@@ -40,10 +43,9 @@ public class EmployeePayroll {
         List<LocalDateTime[]> workPeriods = new ArrayList<>();
         
         // Get user input for work periods until the user enters "done"
-        Scanner scanner1 = new Scanner(System.in);
         while (true) {
             System.out.print("Enter the date (yyyy-mm-dd) or type 'done' to finish: ");
-            String inputDate = scanner1.nextLine();
+            String inputDate = strScanner.nextLine();
             if (inputDate.equalsIgnoreCase("done")) {
                 break;
             }
@@ -51,10 +53,10 @@ public class EmployeePayroll {
             LocalDate date = LocalDate.parse(inputDate);
             
             System.out.print("Enter the time in (hh:mm): ");
-            LocalTime timeIn = LocalTime.parse(scanner1.nextLine());
+            LocalTime timeIn = LocalTime.parse(strScanner.nextLine());
             
             System.out.print("Enter the time out (hh:mm): ");
-            LocalTime timeOut = LocalTime.parse(scanner1.nextLine());
+            LocalTime timeOut = LocalTime.parse(strScanner.nextLine());
             
             LocalDateTime[] workPeriod = { LocalDateTime.of(date, timeIn), LocalDateTime.of(date, timeOut) };
             workPeriods.add(workPeriod);
@@ -75,7 +77,7 @@ public class EmployeePayroll {
         
         // Get the employee's additional allowances
         System.out.println("Enter additional allowances: ");
-        float additonalAllowances = scanner1.nextFloat();
+        float additonalAllowances = fltScanner.nextFloat();
         
      // Calculate the deductions
         double sssDeduction = 0;
@@ -171,9 +173,9 @@ public class EmployeePayroll {
         System.out.println(subheading);
 
         // Display the employee's number, name, birthday and hourly rate
-        System.out.println("Employee Number: " + number);
-        System.out.println("Employee Name: " + name);
-        System.out.println("Employee Birthdate: " + birthdate);
+        System.out.println("Employee Number: " + employee.GetEployeeNo());
+        System.out.println("Employee Name: " + employee.GetEmployeeName());
+        System.out.println("Employee Birthdate: " + employee.GetEmployeeBirthdate());
         System.out.println("Hourly Rate: " + hourlyRate);
    
         // Prints the total worked hours in the week
